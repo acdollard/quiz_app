@@ -31,23 +31,47 @@ class _QuizPageState extends State<QuizPage> {
       Icons.check,
       color: Colors.green,
     ),
-    Icon(
-      Icons.close,
-      color: Colors.red,
+  ];
+  List<Text> questions = [
+    Text(
+      'You can lead a cow down stairs but not up stairs.',
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        fontSize: 25.0,
+        color: Colors.white,
+      ),
     ),
-    Icon(
-      Icons.close,
-      color: Colors.red,
+    Text('Approximately one quarter of human bones are in the feet.',
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        fontSize: 25.0,
+        color: Colors.white,
+      ),
     ),
-    Icon(
-      Icons.check,
-      color: Colors.green,
+    Text('A slug\'s blood is green.',
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        fontSize: 25.0,
+        color: Colors.white,
+      ),
     ),
-    Icon(
-      Icons.check,
-      color: Colors.green,
+    Text('The name Avocado is derived from the Incan word for testicle',
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        fontSize: 25.0,
+        color: Colors.white,
+      ),
     ),
   ];
+  int iterator = 0;
+
+  Text returnText() {
+    if (iterator >= 4) {
+      iterator = 0;
+    } else {
+      return questions[iterator];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,14 +84,7 @@ class _QuizPageState extends State<QuizPage> {
           child: Padding(
             padding: EdgeInsets.all(10.0),
             child: Center(
-              child: Text(
-                'This is where the question text will go.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 25.0,
-                  color: Colors.white,
-                ),
-              ),
+              child: returnText(),
             ),
           ),
         ),
@@ -85,13 +102,10 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: (){
-              setState(() {
-                scoreKeeper.add(Icon(
-                  Icons.check,
-                  color: Colors.green,
-                ));
-              });
-  }
+                setState(() {
+                  iterator++;
+                });
+              },
             ),
           ),
         ),
