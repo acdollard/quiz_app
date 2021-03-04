@@ -27,51 +27,24 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
 
   List<Icon> scoreKeeper = [
-    Icon(
-      Icons.check,
-      color: Colors.green,
-    ),
-  ];
-  List<Text> questions = [
-    Text(
-      'You can lead a cow down stairs but not up stairs.',
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        fontSize: 25.0,
-        color: Colors.white,
-      ),
-    ),
-    Text('Approximately one quarter of human bones are in the feet.',
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        fontSize: 25.0,
-        color: Colors.white,
-      ),
-    ),
-    Text('A slug\'s blood is green.',
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        fontSize: 25.0,
-        color: Colors.white,
-      ),
-    ),
-    Text('The name Avocado is derived from the Incan word for testicle',
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        fontSize: 25.0,
-        color: Colors.white,
-      ),
-    ),
-  ];
-  int iterator = 0;
 
-  Text returnText() {
-    if (iterator >= 4) {
-      iterator = 0;
-    } else {
-      return questions[iterator];
-    }
-  }
+  ];
+
+  List<String> questions = [
+    'You can lead a cow down stairs but not up stairs.',
+    'Approximately one quarter of human bones are in the feet.',
+    'A slug\'s blood is green.',
+    'The name Avocado is derived from the Incan word for testicle',
+  ];
+
+  List<bool> answers = [
+    false,
+    true,
+    true,
+    true
+  ];
+
+  int iterator = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +57,14 @@ class _QuizPageState extends State<QuizPage> {
           child: Padding(
             padding: EdgeInsets.all(10.0),
             child: Center(
-              child: returnText(),
+              child: Text(
+                questions[iterator],
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 25.0,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ),
         ),
@@ -102,9 +82,22 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: (){
-                setState(() {
-                  iterator++;
-                });
+               if (answers[iterator] == true) {
+                  scoreKeeper.add(Icon(
+                    Icons.check,
+                    color: Colors.green,
+                  ));
+               } else {
+                 scoreKeeper.add(Icon(
+                   Icons.close,
+                   color: Colors.red,
+                 ));
+               }
+               setState(() {
+                 iterator++;
+                 if (iterator >= 4) iterator = 0;
+
+               });
               },
             ),
           ),
@@ -122,7 +115,23 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                //The user picked false.
+                if (answers[iterator] == false) {
+                  scoreKeeper.add(Icon(
+                    Icons.check,
+                    color: Colors.green,
+                  ));
+                }
+                else {
+                  scoreKeeper.add(Icon(
+                    Icons.close,
+                    color: Colors.red,
+                  ));
+                }
+                setState(() {
+                  iterator++;
+                  if (iterator >= 4) iterator = 0;
+
+                });
               },
             ),
           ),
@@ -139,5 +148,8 @@ class _QuizPageState extends State<QuizPage> {
 question1: 'You can lead a cow down stairs but not up stairs.', false,
 question2: 'Approximately one quarter of human bones are in the feet.', true,
 question3: 'A slug\'s blood is green.', true,
+'The name Avocado is derived from the Incan word for testicle'
 */
+
+
 
