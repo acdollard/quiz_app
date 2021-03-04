@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'quiz_brain.dart';
+
+QuizBrain quizBrain = QuizBrain();
 
 void main() => runApp(Quizzler());
 
@@ -30,19 +33,6 @@ class _QuizPageState extends State<QuizPage> {
 
   ];
 
-  List<String> questions = [
-    'You can lead a cow down stairs but not up stairs.',
-    'Approximately one quarter of human bones are in the feet.',
-    'A slug\'s blood is green.',
-    'The name Avocado is derived from the Incan word for testicle',
-  ];
-
-  List<bool> answers = [
-    false,
-    true,
-    true,
-    true
-  ];
 
   int iterator = 0;
 
@@ -58,7 +48,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questions[iterator],
+                quizBrain.questionBank[iterator].questionText,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -82,7 +72,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: (){
-               if (answers[iterator] == true) {
+               if (quizBrain.questionBank[iterator].questionAnswer == true) {
                   scoreKeeper.add(Icon(
                     Icons.check,
                     color: Colors.green,
@@ -95,7 +85,7 @@ class _QuizPageState extends State<QuizPage> {
                }
                setState(() {
                  iterator++;
-                 if (iterator >= 4) iterator = 0;
+                 if (iterator >= quizBrain.questionBank.length) iterator = 0;
 
                });
               },
@@ -115,7 +105,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                if (answers[iterator] == false) {
+                if (quizBrain.questionBank[iterator].questionAnswer == false) {
                   scoreKeeper.add(Icon(
                     Icons.check,
                     color: Colors.green,
